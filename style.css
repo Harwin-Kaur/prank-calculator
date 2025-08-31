@@ -38,21 +38,32 @@ body{
 
   display: grid;
   gap: 1rem;
-  grid-template-areas: "";
+  grid-template-areas: 
+  "display display display display"
+  "ac c per divide"
+  "btn7 btn8 btn9 x"
+  "btn4 btn5 btn6 minus"
+  "btn1 btn2 btn3 plus"
+  "btn0 dot equal equal";
+
+  transform: perspective(70rem) rotateX(30deg);
 }
 
 .display{
+  grid-area: display;
   background: var(--secondary-color);
   padding: 1rem;
   font-size: 1.5rem;
   text-align: end;
   font-weight: bolder;
   box-shadow: 0 10px 5px rgba(137, 136, 136, 0.542);
+  
 }
 
 .calculator .btn{
   background: var(--trClr);
   height: 50px;
+  border-radius: 5px;
 
   display: flex;
   justify-content: center;
