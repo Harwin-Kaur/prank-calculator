@@ -47,6 +47,7 @@ body{
   "btn0 dot equal equal";
 
   transform: perspective(70rem) rotateX(30deg);
+  animation: moving 2s;
 }
 
 .display{
@@ -140,3 +141,35 @@ body{
   grid-area: equal;
 }
 
+.prank{
+  background: red;
+  color: white;
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%{
+    transform: translateX(10px);
+  }
+  50%{
+    transform: translateX(-10px);
+  }
+  80%{
+    transform: translateX(10px);
+  }
+  100%{
+    transform: translateX(-10px);
+  }
+  
+}
+
+@keyframes moving {
+  0%{
+    transform: perspective(10rem) rotateX(30deg);
+  }
+
+  100%{
+    transform: perspective(70rem) rotateX(30deg);
+  }
+  
+}

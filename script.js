@@ -97,17 +97,25 @@ const allButtonsEL = document.querySelectorAll('.btn');
 let strToDisplay = "";
 const displayEl = document.querySelector('.display');
 
-const operator = ["+", "-", "*", "/", "%"];
+const operator = ["+", "-", "*", "/", "%", "."];
+
+let lastOperator = "";
+
+//Load Audio
+// const audio = new Audio('./assets/click.mp3');
 
 const buttonAction = function(value){
     console.log(value);
+    displayEl.classList.remove("prank");
     if(value === "AC"){
             strToDisplay = "";
             return display(strToDisplay);
         }
 
-    if(value === "="){
+    if(value === "=" || value === "Enter"){
         // return displayTotal();
+
+        lastOperator = "";
 
         //get the last character
 
@@ -125,32 +133,44 @@ const buttonAction = function(value){
             return display(strToDisplay);
         }
 
-        if(value === "."){
-                strToDisplay = strToDisplay.replace('..', '.');
-                console.log(strToDisplay);
-                return display(strToDisplay);
-        }
-
         //show only last clicked operator
     if(operator.includes(value)){
+
+         lastOperator = value
+
         //get the last character
         const lastChar = strToDisplay[strToDisplay.length - 1];
 
         if(operator.includes(lastChar)){
             strToDisplay = strToDisplay.slice(0, -1);
         }
-    }
+    }                                                                                   
+
+     if(value === "."){
+        const lastOperatorIndex = strToDisplay.lastIndexOf(lastOperator);
+        console.log(lastOperatorIndex);
+
+        const lastNumberSet = strToDisplay.slice(lastOperatorIndex);
+        console.log(lastNumberSet);
+
+                if(!lastOperator && strToDisplay.includes(".")){
+                   return;  
+                }
+        }
 
         strToDisplay += value;  
         display(strToDisplay);
     }
 
-    
-
 //foreach is high order function that take another function
 
 allButtonsEL.forEach(function(btn){
+btn.addEventListener("mousedown", () => {
+    btn.style.scale = "0.9";
+});
+
     btn.addEventListener("click", function(){
+        btn.style.scale = "1";
         const value = btn.innerText;
         buttonAction(value);
     });
@@ -163,7 +183,31 @@ const display = function(str){
 //calculate total
 
 const displayTotal = function() {   
-    const total = eval(strToDisplay);
+
+    const extraValue = randomValue();
+    if(extraValue){
+        displayEl.classList.add("prank");
+        // audio.play();
+    }
+    const total = eval(strToDisplay) + extraValue;
     strToDisplay = total.toString();
     display(strToDisplay);
 }
+
+const randomValue = () => {
+    const num = Math.round(Math.random() * 10); //0-10
+    return num < 4 ? num : 0;
+}
+
+//binding keyboard with browser app
+
+document.addEventListener("keypress", (e) => {
+    console.log(e);
+    const value = e.key;
+
+    if(e.code.includes("Key")){
+        return;
+    }
+    
+    buttonAction(value);
+});
