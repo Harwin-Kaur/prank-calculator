@@ -187,7 +187,7 @@ const displayTotal = function() {
     const extraValue = randomValue();
     if(extraValue){
         displayEl.classList.add("prank");
-        // audio.play();
+        audio.play();
     }
     const total = eval(strToDisplay) + extraValue;
     strToDisplay = total.toString();
