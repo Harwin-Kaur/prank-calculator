@@ -99,7 +99,7 @@ const displayEl = document.querySelector('.display');
 
 const operator = ["+", "-", "*", "/", "%", "."];
 
-// let lastOperator = "";
+let lastOperator = "";
 
 //Load Audio
 // const audio = new Audio('./assets/click.mp3');
